@@ -236,3 +236,30 @@ This project would not be possible without the contributions of the following re
 - [rsl_rl](https://github.com/leggedrobotics/rsl_rl.git): reinforcement learning algorithm implementation
 - [mujoco_warp](https://github.com/google-deepmind/mujoco_warp.git): GPU-accelerated rendering and simulation interface
 - [mujoco](https://github.com/google-deepmind/mujoco.git): high-fidelity rigid-body physics engine
+
+
+Start env & dependencies:
+
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate unitree_rl_mjlab
+python scripts/list_envs.py
+
+Sim render :
+
+python scripts/play.py Unitree-G1-Flat \
+  --agent zero \
+  --num-envs 1 \
+  --device cuda:0 \
+  --viewer native
+
+Training :
+
+python scripts/train.py Unitree-G1-Tracking-No-State-Estimation \
+  --motion-file src/assets/motions/g1/dance1_subject2.npz \
+  --env.scene.num-envs 4096 \
+  --agent.max-iterations 100 \
+  --agent.logger tensorboard
+
+Tensorboard :
+conda activate unitree_rl_mjlab
+tensorboard --logdir ~/unitree_rl_mjlab/logs/rsl_rl/g1_tracking --port 6006
